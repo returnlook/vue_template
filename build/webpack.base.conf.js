@@ -3,6 +3,8 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const glob = require('glob')
+var entries = getEntry('./src/pages/**/*.js')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -21,9 +23,7 @@ const createLintingRule = () => ({
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: {
-    app: './src/main.js'
-  },
+  entry: entries,
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -89,4 +89,15 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty'
   }
+}
+//获取入口js文件
+function getEntry(globPath) {
+  var entries = {},
+    basename, tmp
+
+  glob.sync(globPath).forEach(function(entry) {
+    basename = path.basename(entry, path.extname(entry));
+    entries[basename] = entry;
+  });
+  return entries;
 }
