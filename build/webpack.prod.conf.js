@@ -126,7 +126,8 @@ for (var pathname in pages) {
       collapseWhitespace: true,
       removeAttributeQuotes: true
     },
-    chunks: [pathname]
+    chunks: ['manifest','vendor',pathname],
+    chunksSortMode: 'dependency'
   }
   webpackConfig.plugins.push(new HtmlWebpackPlugin(conf));
 }

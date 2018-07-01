@@ -8,8 +8,8 @@ const glob = require('glob')
 var build = {
   // Paths
   assetsRoot: path.resolve(__dirname, '../dist'),
-  assetsSubDirectory: 'static',
-  assetsPublicPath: '/',
+  assetsSubDirectory: './static',
+  assetsPublicPath: './',
 
   /**
    * Source Maps
@@ -38,7 +38,7 @@ var pages = getEntry('src/pages/**/*.html');
 
 //每个入口页面生成一个入口添加到build中
 for (var pathname in pages) {
-  build[pathname] = path.resolve(__dirname, '../'+pages[pathname])
+  build[pathname] = path.resolve(__dirname, '../dist/' + pathname + '.html')
 }
 
 module.exports = {
